@@ -9,11 +9,11 @@ export function Square(props) {
 
     return (
         <div className={`square ${sqr.color}`}>
-            <div className="position">
-                {sqr.position}
-            </div>
+            {props.showPos ? 
+                <div className="position">
+                    {sqr.position}
+                </div> : null}
             <div className={`chess-peace ${peaceColor}`}>{peace}</div>
         </div>
     );
 }
-
