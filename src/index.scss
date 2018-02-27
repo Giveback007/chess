@@ -1,0 +1,77 @@
+$size: 500px;
+// $lightSquares: ;
+// $darkSquares: grey;
+
+* {
+    box-sizing: border-box;
+}
+
+.board  {
+    display: flex;
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .board-main {
+        width: $size;
+        height: $size;
+        border: solid 1px;
+        display: flex;
+        .column {
+            height: 100%;
+            width: calc(100% / 8);
+        }
+        .square {
+            height: calc(100% / 8);
+            display: flex;
+            &.light {
+                background: white;
+            }
+            &.dark {
+                background: grey;
+            }
+            .position {
+                position: absolute;
+                padding: 3px;
+            }
+            div {
+                margin: auto;
+            }
+        }
+    }
+    
+    .keys {
+        display: flex;
+        div {
+            display: flex;
+            span {
+                margin: auto;
+            }
+        }
+
+        &.vert {
+            flex-direction: column;
+            div {
+                height: $size / 8;
+            }
+        }
+
+        &.horz div {
+            width: $size / 8;
+        }
+        
+    }
+
+}
+
+.chess-peace {
+    font-size: 250%;
+    text-align: center;
+    &.w {
+        color: #13073A;
+    }
+    &.b {
+        color: #550000;
+    }
+}
