@@ -15,7 +15,7 @@ function getBoardState(game) {
 }
 
 async function runGame(game) {
-    await new Promise(res => setTimeout(res, 500));
+    await new Promise(res => setTimeout(res, 0));
     if (!game.game_over()) {
         const moves = game.moves();
         const nextMove = moves[Math.floor(Math.random() * moves.length)];
