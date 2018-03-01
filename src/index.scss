@@ -1,7 +1,7 @@
 // @import "~bootstrap/dist/css/bootstrap";
 $size: 500px;
-// $lightSquares: ;
-// $darkSquares: grey;
+$lightSquares: white;
+$darkSquares: grey;
 
 * {
     box-sizing: border-box;
@@ -17,7 +17,7 @@ $size: 500px;
     .board-main {
         width: $size;
         height: $size;
-        border: solid 1px;
+        border: solid 2px $darkSquares;
         display: flex;
         .column {
             height: 100%;
@@ -27,10 +27,10 @@ $size: 500px;
             height: calc(100% / 8);
             display: flex;
             &.light {
-                background: white;
+                background: $lightSquares;
             }
             &.dark {
-                background: grey;
+                background: $darkSquares;
             }
             .position {
                 position: absolute;
