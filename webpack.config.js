@@ -1,21 +1,28 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
     devServer: {
-        contentBase: './dist/index.html'
+        contentBase: __dirname + '/dist/index.html',
+        hot: true,
+        port: 9000
     },
     plugins: [
-        // new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: '(Dev) Chess',
-            template: './src/index.html'
-        })
+            template: './src/index.html',
+            filename: 'index.html'
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     entry: {
         app:"./src/app.tsx",
-        // vendor: ["react", "react-dom", "chess.js"]
+        vendor: ["react", "react-dom", "chess.js"]
     },
     output: {
         path: __dirname + "/dist",
@@ -46,8 +53,9 @@ module.exports = {
             }
         ]
     },
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // }
+    externals: {
+        // "react": "React",
+        // "react-dom": "ReactDOM",
+        // "chess.js": "Chess"
+    }
 }

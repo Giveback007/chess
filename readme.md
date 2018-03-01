@@ -18,6 +18,9 @@ Built with React.js and Chess.js
 - [have Sass editing working in chrome](https://medium.com/@toolmantim/getting-started-with-css-sourcemaps-and-in-browser-sass-editing-b4daab987fb0)
 - [caching](https://webpack.js.org/guides/caching/)
 - [code spliting](https://webpack.js.org/guides/code-splitting/)
+- Debuging in VS-Code
+- Dev and Prod
+- [production](https://webpack.js.org/guides/production/)
 
 ##### Features
 - Make the game people playable
