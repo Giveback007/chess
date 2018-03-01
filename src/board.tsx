@@ -12,7 +12,7 @@ export class GameBoard extends React.Component <{
     constructor(props) {
         super(props);
         this.state = {
-            showPositions: true,
+            showPositions: false,
         }
     }
 

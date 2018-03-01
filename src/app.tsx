@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom';
 import * as Chess from 'chess.js';
 import { Game } from './game';
 import { setTimeout } from 'timers';
-import { genEmptyBoard } from './lib'
+import { genEmptyBoard } from './lib';
+import './index.scss';
 
 let game = Chess();
 let board = genEmptyBoard();
@@ -15,7 +16,7 @@ function getBoardState(game) {
 }
 
 async function runGame(game) {
-    await new Promise(res => setTimeout(res, 0));
+    await new Promise(res => setTimeout(res, 250));
     if (!game.game_over()) {
         const moves = game.moves();
         const nextMove = moves[Math.floor(Math.random() * moves.length)];
