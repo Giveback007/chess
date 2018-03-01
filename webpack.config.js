@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -12,7 +12,7 @@ module.exports = {
         port: 9000
     },
     plugins: [
-        // new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: '(Dev) Chess',
             template: './src/index.html',
@@ -23,7 +23,7 @@ module.exports = {
     ],
     entry: {
         app:"./src/app.tsx",
-        vendor: ["react", "react-dom", "chess.js"]
+        // vendor: ["react", "react-dom", "chess.js"]
     },
     output: {
         path: __dirname + "/dist",
@@ -39,14 +39,11 @@ module.exports = {
                 test: /\.tsx?$/, 
                 use: [{
                     loader: 'babel-loader',
-                    options: {
-                        babelrc: true,
-                        plugins: ['react-hot-loader/babel'],
-                    }
+                    options: { plugins: ['react-hot-loader/babel'] }
                 },
                 {
                     loader: 'ts-loader',
-                    // options: { transpileOnly: true }
+                    options: { transpileOnly: true }
                 }], 
                 
             },
