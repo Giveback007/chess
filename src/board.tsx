@@ -9,11 +9,10 @@ export class GameBoard extends React.Component <{
 }, {
     showPositions: boolean
 }> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showPositions: false,
-        }
+    constructor(props) { super(props) }
+
+    state = {
+        showPositions: false,
     }
 
     togglePositions = () => 

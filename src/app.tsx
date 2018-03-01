@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Chess from 'chess.js';
-import { Game } from './game';
+import Game from './game';
 import { setTimeout } from 'timers';
 import { genEmptyBoard } from './lib';
 import './index.scss';

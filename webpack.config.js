@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -8,10 +8,11 @@ module.exports = {
     devServer: {
         contentBase: __dirname + '/dist/index.html',
         hot: true,
+        // hotOnly: true,
         port: 9000
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        // new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: '(Dev) Chess',
             template: './src/index.html',
@@ -36,8 +37,18 @@ module.exports = {
         rules: [
             { 
                 test: /\.tsx?$/, 
-                use: 'ts-loader', 
-                // options: { transpileOnly: true }
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        babelrc: true,
+                        plugins: ['react-hot-loader/babel'],
+                    }
+                },
+                {
+                    loader: 'ts-loader',
+                    // options: { transpileOnly: true }
+                }], 
+                
             },
             {
                 test: /\.scss$/,
