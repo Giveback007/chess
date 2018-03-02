@@ -24,6 +24,7 @@ $darkSquares: grey;
             display: flex;
             flex: 1;
         }
+
         .square {
             flex: 1;
             display: flex;
@@ -41,30 +42,30 @@ $darkSquares: grey;
                 margin: auto;
             }
         }
-    }
-    
-    .keys {
-        display: flex;
-        div {
-            display: flex;
-            span {
-                margin: auto;
-            }
-        }
-
-        &.vert {
-            flex-direction: column;
-            div {
-                height: $size / 8;
-            }
-        }
-
-        &.horz div {
-            width: $size / 8;
-        }
         
     }
+}
 
+.keys {
+    display: flex;
+    div {
+        display: flex;
+        span {
+            margin: auto;
+        }
+    }
+
+    &.vert {
+        flex-direction: column;
+        div {
+            height: $size / 8;
+        }
+    }
+
+    &.horz div {
+        width: $size / 8;
+    }
+    
 }
 
 .chess-peace {

@@ -5,32 +5,31 @@ import { iSquare } from './defn';
 import { horz, vert, parseBoard } from './lib';
 import { hot } from 'react-hot-loader'
 
-export class GameBoard extends React.Component <{
+export class GameBoard extends React.Component<{
     board: iSquare[],
 }, {
     showPositions: boolean
 }> {
     constructor(props) { super(props) }
-
     state = {
-        showPositions: true,
+        showPositions: false,
     }
 
-    togglePositions = () => 
-        this.setState({showPositions: !this.state.showPositions});
+    togglePositions = () =>
+        this.setState({ showPositions: !this.state.showPositions });
 
     render(st = this.state, pr = this.props) {
         const board = parseBoard(pr.board).map((row, idx) => (
             <div className="row" key={idx}>
-                 {row.map(sqr => 
-                    <Square 
-                        key = {sqr.position}
-                        showPos = {st.showPositions}
-                        sqr = {sqr}
+                {row.map(sqr =>
+                    <Square
+                        key={sqr.position}
+                        showPos={st.showPositions}
+                        sqr={sqr}
                     />
                 )}
-            </div>
-        ));
+            </div>));
+
         return (
             <div>
                 <button onClick={this.togglePositions}>Show Pos</button>
@@ -38,11 +37,11 @@ export class GameBoard extends React.Component <{
                 <div className="board">
                     <section>
                         <div className="keys vert">
-                            {horz.map((x, i) => 
+                            {horz.map((x, i) =>
                                 <div key={i}><span>{vert[i]}</span></div>)}
                         </div>
                     </section>
-                    
+
                     <section>
                         <div className="board-main">
                             {board}
@@ -56,6 +55,6 @@ export class GameBoard extends React.Component <{
             </div>
         );
     }
-} 
+}
 
 export default hot(module)(GameBoard);

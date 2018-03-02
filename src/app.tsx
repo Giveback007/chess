@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Chess from 'chess.js';
 import GameBoard from './game-board';
-import { setTimeout } from 'timers';
 import { genEmptyBoard } from './lib';
 import './index.scss';
 
@@ -11,7 +10,10 @@ let board = genEmptyBoard();
 
 function getBoardState(game) {
     const board = genEmptyBoard()
-    board.map(sqr => sqr.peace = game.get(sqr.position));
+    board.map(sqr => {
+        sqr.peace = game.get(sqr.position)
+        sqr.moves = game.moves({square: sqr.position, verbose: true})
+    });
     
     return board;
 }
@@ -28,6 +30,8 @@ async function runGame(game) {
     }
 }
 
-runGame(game);
+console.log(game);
+ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById('root'));
+// runGame(game);
     
 

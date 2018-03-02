@@ -13,13 +13,14 @@ export const getBoardIndex = (pos: string) => ({
 
 export const getBoardPos = (horzIdx: number, vertIdx: number) => horz[horzIdx] + vert[vertIdx];
 
-export const getSquareProps = (h: number, v: number): iSquare => ({
+export const genSquare = (h: number, v: number): iSquare => ({
     horzIdx: h,
     vertIdx: v,
     position: horz[h] + vert[v],
     highlighted: false,
     color: (h + v) % 2 ? 'dark' : 'light',
-    peace: null
+    peace: null,
+    moves: null
 });
 
 // export const genEmptyBoard = () => Array.from(Array(8), (x, h) =>
@@ -29,7 +30,7 @@ export function genEmptyBoard(): iSquare[] {
     const squares = [];
     for (let h = 0; h < 8; h++) {
         for (let v = 0; v < 8; v++) {
-            let sqr = getSquareProps(h, v);
+            let sqr = genSquare(h, v);
             squares.push(sqr)
             squares[sqr.position] = sqr;
         }
