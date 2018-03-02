@@ -3,7 +3,7 @@ import { iSquare } from './defn';
 export const horz = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export const vert = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
-export const clone = <T1 extends any>(obj: T1) => 
+export const clone = <T1 extends any>(obj: T1) =>
     JSON.parse(JSON.stringify(obj));
 
 export const getBoardIndex = (pos: string) => ({
@@ -14,12 +14,32 @@ export const getBoardIndex = (pos: string) => ({
 export const getBoardPos = (horzIdx: number, vertIdx: number) => horz[horzIdx] + vert[vertIdx];
 
 export const getSquareProps = (h: number, v: number): iSquare => ({
-    horzIdx: h, 
+    horzIdx: h,
     vertIdx: v,
     position: horz[h] + vert[v],
-    color: Boolean((h + v) % 2) ? 'dark' : 'light',
+    highlighted: false,
+    color: (h + v) % 2 ? 'dark' : 'light',
     peace: null
 });
-  
-export const genEmptyBoard = () => Array.from(Array(8), (x, h) => 
-    Array.from(Array(8), (x, v) => getSquareProps(h, v)));
+
+// export const genEmptyBoard = () => Array.from(Array(8), (x, h) =>
+//     Array.from(Array(8), (x, v) => getSquareProps(h, v)));
+
+export function genEmptyBoard(): iSquare[] {
+    const squares = [];
+    for (let h = 0; h < 8; h++) {
+        for (let v = 0; v < 8; v++) {
+            let sqr = getSquareProps(h, v);
+            squares.push(sqr)
+            squares[sqr.position] = sqr;
+        }
+    }
+    return squares;
+}
+
+export function parseBoard(board: iSquare[]): iSquare[][] {
+    return board.reduce((rows, sqr, i) => {
+        rows[(i + 8) % 8].push(sqr);
+        return rows
+    }, Array(8).fill(null).map(x => []))
+}
