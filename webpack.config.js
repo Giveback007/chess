@@ -8,19 +8,8 @@ module.exports = {
     devServer: {
         contentBase: __dirname + '/dist/index.html',
         hot: true,
-        // hotOnly: true,
         port: 9000
     },
-    plugins: [
-        new CleanWebpackPlugin(['dist']),
-        new HtmlWebpackPlugin({
-            title: '(Dev) Chess',
-            template: './src/index.html',
-            filename: 'index.html'
-        }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ],
     entry: {
         app:"./src/app.tsx",
         // vendor: ["react", "react-dom", "chess.js"]
@@ -61,6 +50,22 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            title: '(Dev) Chess',
+            template: './src/index.html',
+            filename: 'index.html'
+        }),
+        // For HMR, makes it easier to see which dependencies are being patched
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ],
+
+    // When importing a module whose path matches one of the following, just
+    // assume a corresponding global variable exists and use that instead.
+    // This is important because it allows us to avoid bundling all of our
+    // dependencies, which allows browsers to cache those libraries between builds.
     externals: {
         // "react": "React",
         // "react-dom": "ReactDOM",

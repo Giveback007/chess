@@ -15,8 +15,11 @@ Built with React.js and Chess.js
 - Debuging in VS-Code
 - Dev and Prod
 - [production](https://webpack.js.org/guides/production/)
+- Add redux devtools
+- ["live code editing combined with a time traveling debugger."](https://github.com/gaearon/redux-devtools)
 
 ##### Features
+- Add redux
 - Each peace should be its own component
 - Make the game people playable
 	* Highlighting of moves

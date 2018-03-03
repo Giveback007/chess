@@ -6,7 +6,7 @@
   "scripts": {
     "start": "code . && npm run webpack-serve",
     "webpack-serve": "node_modules/.bin/webpack-dev-server --open",
-    "webpack-build": "node_modules/.bin/webpack"
+    "webpack": "node_modules/.bin/webpack"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +30,7 @@
   "dependencies": {
     "chess.js": "0.10.2",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "redux": "3.7.2"
   }
 }

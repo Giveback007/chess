@@ -30,8 +30,7 @@ async function runGame(game) {
     }
 }
 
-console.log(game);
 ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById('root'));
-// runGame(game);
+runGame(game);
     
 

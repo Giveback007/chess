@@ -35,6 +35,7 @@ export function genEmptyBoard(): iSquare[] {
             squares[sqr.position] = sqr;
         }
     }
+    
     return squares;
 }
 
