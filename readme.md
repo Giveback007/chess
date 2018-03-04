@@ -11,14 +11,15 @@ Built with React.js and Chess.js
 - "externals:" ?
 - [have Sass editing working in chrome](https://medium.com/@toolmantim/getting-started-with-css-sourcemaps-and-in-browser-sass-editing-b4daab987fb0)
 - [caching](https://webpack.js.org/guides/caching/)
-- [code spliting](https://webpack.js.org/guides/code-splitting/)
-- Debuging in VS-Code
+- [code splitting](https://webpack.js.org/guides/code-splitting/)
+- Debugging in VS-Code
 - Dev and Prod
 - [production](https://webpack.js.org/guides/production/)
 - Add redux devtools
 - ["live code editing combined with a time traveling debugger."](https://github.com/gaearon/redux-devtools)
 
 ##### Features
+- Learn CSS grid and implement
 - Add redux
 - Each peace should be its own component
 - Make the game people playable

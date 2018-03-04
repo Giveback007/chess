@@ -1,36 +1,34 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as Chess from 'chess.js';
-import GameBoard from './game-board';
-import { genEmptyBoard } from './lib';
-import './index.scss';
+import * as Chess from "chess.js";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import GameBoard from "./game-board";
+import "./index.scss";
+import { genEmptyBoard } from "./lib";
 
-let game = Chess();
-let board = genEmptyBoard();
+const chessGame = Chess();
+const board = genEmptyBoard();
 
 function getBoardState(game) {
-    const board = genEmptyBoard()
-    board.map(sqr => {
-        sqr.peace = game.get(sqr.position)
-        sqr.moves = game.moves({square: sqr.position, verbose: true})
+    const newBoard = genEmptyBoard();
+    newBoard.map((sqr) => {
+        sqr.peace = game.get(sqr.position);
+        sqr.moves = game.moves({square: sqr.position, verbose: true});
     });
-    
-    return board;
+
+    return newBoard;
 }
 
 async function runGame(game) {
-    await new Promise(res => setTimeout(res, 250));
+    await new Promise((res) => setTimeout(res, 250));
     if (!game.game_over()) {
         const moves = game.moves();
         const nextMove = moves[Math.floor(Math.random() * moves.length)];
         game.move(nextMove);
-        ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById('root'));
+        ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById("root"));
 
         runGame(game);
     }
 }
 
-ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById('root'));
-runGame(game);
-    
-
+ReactDOM.render(<GameBoard board={getBoardState(chessGame)} />, document.getElementById("root"));
+runGame(chessGame);
