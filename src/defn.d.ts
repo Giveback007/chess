@@ -1,19 +1,21 @@
-export interface iSquare {
+export interface GameState { game: any, board: ISquare[] }
+
+export interface ISquare {
     horzIdx: number,
     vertIdx: number,
     position: string,
     highlighted: boolean,
     color: 'dark' | 'light',
-    peace: iPeace,
+    piece: IPiece,
     moves: string[]
 }
 
-export interface iPeace {
-    type: iPeaceType;
+export interface IPiece {
+    type: IPieceType;
     color: 'w' | 'b';
 }
 
-export type iPeaceType = 'k' | 'q' | 'b' | 'n' | 'p' | 'r';
+export type IPieceType = 'k' | 'q' | 'b' | 'n' | 'p' | 'r';
 
 // {
 //     "color": "w",

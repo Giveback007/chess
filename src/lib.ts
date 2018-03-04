@@ -1,4 +1,4 @@
-import { iSquare } from "./defn";
+import { ISquare } from "./defn";
 // idx keys
 export const horz = ["a", "b", "c", "d", "e", "f", "g", "h"];
 export const vert = ["8", "7", "6", "5", "4", "3", "2", "1"];
@@ -13,20 +13,20 @@ export const getBoardIndex = (pos: string) => ({
 
 export const getBoardPos = (horzIdx: number, vertIdx: number) => horz[horzIdx] + vert[vertIdx];
 
-export const genSquare = (h: number, v: number): iSquare => ({
+export const genSquare = (h: number, v: number): ISquare => ({
     horzIdx: h,
     vertIdx: v,
     position: horz[h] + vert[v],
     highlighted: false,
     color: (h + v) % 2 ? "dark" : "light",
-    peace: null,
+    piece: null,
     moves: null,
 });
 
 // export const genEmptyBoard = () => Array.from(Array(8), (x, h) =>
 //     Array.from(Array(8), (x, v) => getSquareProps(h, v)));
 
-export function genEmptyBoard(): iSquare[] {
+export function genEmptyBoard(): ISquare[] {
     const squares = [];
     for (let h = 0; h < 8; h++) {
         for (let v = 0; v < 8; v++) {
@@ -39,7 +39,7 @@ export function genEmptyBoard(): iSquare[] {
     return squares;
 }
 
-export function parseBoard(board: iSquare[]): iSquare[][] {
+export function parseBoard(board: ISquare[]): ISquare[][] {
     return board.reduce((rows, sqr, i) => {
         rows[(i + 8) % 8].push(sqr);
         return rows;

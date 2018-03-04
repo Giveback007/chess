@@ -1,21 +1,32 @@
-import { createStore, Reducer } from "redux";
-// import GameBoard from './game-board';
-// import { genEmptyBoard } from './lib';
-import { AnyAction } from "redux";
+import { createStore } from "redux";
 
-const PEACE_WAS_CLICKED = "PEACE_WAS_CLICKED";
-const PEACE_HAS_MOVED = "PEACE_HAS_MOVED";
+const applyUpdater = (oldState) => (newState) => ({...oldState, ...newState});
 
-const peaceWasClicked = (position: string): AnyAction =>
-    ({ type: PEACE_WAS_CLICKED, position });
+const reducer = (state = {name: "Bob"}, action) => {
+    const update = action.change;
+    const updater = applyUpdater(state);
 
-const peaceHasMoved = (move: string): AnyAction =>
-    ({ type: PEACE_HAS_MOVED, move });
-
-const rootReducer = (state, action) => {
-    return state;
+    switch (action.type) {
+        case "CHANGE_NAME":
+            return updater({name: update.name});
+        case "CHANGE_AGE":
+            return updater({age: update.age});
+        default:
+            return updater({});
+    }
 };
 
-rootReducer("string", {type: "s"});
+const reduxStore = createStore(reducer, {});
+reduxStore.subscribe(() => {
+    console.log(reduxStore.getState());
+});
 
-// const store = createStore();
+reduxStore.dispatch({type: "INIT"});
+reduxStore.dispatch({
+    type: "CHANGE_NAME",
+    change: { name: "Dovy" }
+});
+reduxStore.dispatch({
+    type: "CHANGE_AGE",
+    change: { age: 26 }
+});

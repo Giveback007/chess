@@ -24,6 +24,8 @@
 		"mrmlnc.vscode-scss",
 		"adamwalzer.scss-lint",
 		"eg2.tslint",
-		"emmanuelbeziat.vscode-great-icons"
+		"emmanuelbeziat.vscode-great-icons",
+		"donjayamanne.githistory",
+		"eamodio.gitlens"
 	]
 }

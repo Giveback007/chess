@@ -1,12 +1,12 @@
 
 import * as React from "react";
 import { Square } from "./square";
-import { iSquare } from "./defn";
+import { ISquare } from "./defn";
 import { horz, vert, parseBoard } from "./lib";
 import { hot } from "react-hot-loader";
 
 class GameBoard extends React.Component<{
-    board: iSquare[],
+    board: ISquare[],
 }, {
     showPositions: boolean,
 }> {

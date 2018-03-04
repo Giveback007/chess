@@ -21,7 +21,7 @@ Built with React.js and Chess.js
 ##### Features
 - Learn CSS grid and implement
 - Add redux
-- Each peace should be its own component
+- Each piece should be its own component
 - Make the game people playable
 	* Highlighting of moves
 	* [Drag and drop](https://react-dnd.github.io/react-dnd/docs-tutorial.html)

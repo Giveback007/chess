@@ -2,33 +2,55 @@ import * as Chess from "chess.js";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import GameBoard from "./game-board";
-import "./index.scss";
 import { genEmptyBoard } from "./lib";
+import { createStore, Reducer, Action } from "redux";
+import "./index.scss";
+import { GameState, ISquare } from "./defn";
 
-const chessGame = Chess();
-const board = genEmptyBoard();
+// -- // -- // -- //
+const START_NEW_GAME = "START_NEW_GAME";
+// -- // -- // -- //
 
-function getBoardState(game) {
-    const newBoard = genEmptyBoard();
-    newBoard.map((sqr) => {
-        sqr.peace = game.get(sqr.position);
-        sqr.moves = game.moves({square: sqr.position, verbose: true});
-    });
+const initState: GameState = { game: null, board: genEmptyBoard() };
 
-    return newBoard;
-}
-
-async function runGame(game) {
-    await new Promise((res) => setTimeout(res, 250));
-    if (!game.game_over()) {
-        const moves = game.moves();
-        const nextMove = moves[Math.floor(Math.random() * moves.length)];
-        game.move(nextMove);
-        ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById("root"));
-
-        runGame(game);
+const reducer: Reducer<GameState> = (state: GameState = initState, action: Action) => {
+    switch (action.type) {
+        case START_NEW_GAME:
+            const game = Chess();
+            return {game, board: getGameBoardState(game)}
+        default:
+            return state;
     }
+};
+
+export const store = createStore(reducer);
+
+// -- // -- // -- //
+function getGameBoardState(game) {
+    return genEmptyBoard().map((sqr) => {
+        sqr.piece = game.get(sqr.position);
+        sqr.moves = game.moves({square: sqr.position, verbose: true});
+        return sqr;
+    });
 }
 
-ReactDOM.render(<GameBoard board={getBoardState(chessGame)} />, document.getElementById("root"));
-runGame(chessGame);
+store.dispatch({type: START_NEW_GAME});
+const state = store.getState();
+ReactDOM.render(
+    <GameBoard board={state.board} />,
+    document.getElementById("root")
+);
+
+// async function runGame(game) {
+//     await new Promise((res) => setTimeout(res, 250));
+//     if (!game.game_over()) {
+//         const moves = game.moves();
+//         const nextMove = moves[Math.floor(Math.random() * moves.length)];
+//         game.move(nextMove);
+//         ReactDOM.render(<GameBoard board={getBoardState(game)} />, document.getElementById("root"));
+
+//         runGame(game);
+//     }
+// }
+
+// runGame(chessGame);

@@ -1,16 +1,16 @@
 import * as React from "react";
-import { ChessPeace } from "./chess-peace";
-import { iPeaceType, iSquare } from "./defn";
+import { ChessPiece } from "./chess-piece";
+import { IPieceType, ISquare } from "./defn";
 
 export function Square(props) {
-    const sqr: iSquare = props.sqr;
-    const peaceChar: iPeaceType = sqr.peace ? sqr.peace.type : null;
-    const peaceColor = sqr.peace ? sqr.peace.color : "";
+    const sqr: ISquare = props.sqr;
+    const pieceChar: IPieceType = sqr.piece ? sqr.piece.type : null;
+    const pieceColor = sqr.piece ? sqr.piece.color : "";
 
     return (
         <div className={`square ${sqr.color}`}>
             <Position show={props.showPos} pos={sqr.position} />
-            <ChessPeace peace={peaceChar} color={peaceColor} />
+            <ChessPiece piece={pieceChar} color={pieceColor} />
         </div>
     );
 }

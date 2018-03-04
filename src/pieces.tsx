@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const chessPeaces = {
+export const chessPieces = {
     // 'w': {
         // 'k': <div>&#9812;</div>,
         // 'q': <div>&#9813;</div>,
