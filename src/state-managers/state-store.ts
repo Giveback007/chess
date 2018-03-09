@@ -24,9 +24,9 @@ reduxStore.subscribe(() => {
 reduxStore.dispatch({type: "INIT"});
 reduxStore.dispatch({
     type: "CHANGE_NAME",
-    change: { name: "Dovy" }
+    change: { name: "Dovy" },
 });
 reduxStore.dispatch({
     type: "CHANGE_AGE",
-    change: { age: 26 }
+    change: { age: 26 },
 });

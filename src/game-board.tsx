@@ -1,18 +1,17 @@
-
 import * as React from "react";
 import { Square } from "./square";
-import { ISquare } from "./defn";
-import { horz, vert, parseBoard } from "./lib";
+import { ISquare, GameState } from "./defn";
+import { horz, vert, parseBoard, genEmptyBoard } from "./lib";
 import { hot } from "react-hot-loader";
+
+const mapStateToProps = (state: GameState): { board: ISquare[] } => ({ board: state.board });
 
 class GameBoard extends React.Component<{
     board: ISquare[],
 }, {
     showPositions: boolean,
 }> {
-    state = {
-        showPositions: false,
-    };
+    state = { showPositions: false };
     constructor(props) { super(props); }
 
     togglePositions = () =>
@@ -20,36 +19,37 @@ class GameBoard extends React.Component<{
 
     render(st = this.state, pr = this.props) {
 
-        const board = parseBoard(pr.board).map((row, idx) => (
-            <div className="row" key={idx}>
-                {row.map((sqr, i) =>
-                    <Square key={i} showPos={st.showPositions} sqr={sqr} />)}
-            </div>));
+        const board = pr.board ? parseBoard(pr.board).map((row, r) => (
+            <div className="row" key={r}>{row.map((sqr, c) =>
+                <Square
+                    showPos={st.showPositions}
+                    key={c}
+                    sqr={sqr}
+                />)}
+            </div>)) : null;
 
-        return (
-            <div>
+        return (<div>
 
-                <button onClick={this.togglePositions}>Show Pos</button>
+            <button onClick={this.togglePositions}>Show Pos</button>
 
-                <div className="board">
-                    <section>
-                        <Keys arr={vert} name={"vert"}/>
-                    </section>
+            <div className="board">
+                <section>
+                    <Keys arr={vert} name={"vert"}/>
+                </section>
 
-                    <section>
-                        <div className="board-main"> {board} </div>
-                        <Keys arr={horz} name={"horz"}/>
-                    </section>
-                </div>
-
+                <section>
+                    <div className="board-main"> {board} </div>
+                    <Keys arr={horz} name={"horz"}/>
+                </section>
             </div>
-        );
+
+        </div>);
     }
 }
 
-const Keys = (props) =>
-    <div className={`keys ${props.name}`}>
-        {props.arr.map((x) => <div key={x}><span>{x}</span></div>)}
+const Keys = ({name, arr}: {name: string, arr: string[]}) =>
+    <div className={`keys ${name}`}>
+        { arr.map((key) => <div key={key}><span>{key}</span></div>) }
     </div>;
 
 export default hot(module)(GameBoard);

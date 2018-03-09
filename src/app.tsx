@@ -2,22 +2,25 @@ import * as Chess from "chess.js";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import GameBoard from "./game-board";
-import { genEmptyBoard } from "./lib";
-import { createStore, Reducer, Action } from "redux";
+import { genEmptyBoard, getGameBoardState } from "./lib";
+import { createStore, Reducer, AnyAction } from "redux";
 import "./index.scss";
 import { GameState, ISquare } from "./defn";
 
 // -- // -- // -- //
-const START_NEW_GAME = "START_NEW_GAME";
+export const START_NEW_GAME = "START_NEW_GAME";
+export const PIECE_WAS_CLICKED = "PIECE_WAS_CLICKED";
 // -- // -- // -- //
 
 const initState: GameState = { game: null, board: genEmptyBoard() };
 
-const reducer: Reducer<GameState> = (state: GameState = initState, action: Action) => {
+const reducer: Reducer<GameState> = (state = initState, action: AnyAction) => {
     switch (action.type) {
+        case PIECE_WAS_CLICKED:
+            return { game: state.game, board: getGameBoardState(state.game, action.payload) };
         case START_NEW_GAME:
             const game = Chess();
-            return {game, board: getGameBoardState(game)}
+            return { game, board: getGameBoardState(game, []) };
         default:
             return state;
     }
@@ -25,21 +28,13 @@ const reducer: Reducer<GameState> = (state: GameState = initState, action: Actio
 
 export const store = createStore(reducer);
 
-// -- // -- // -- //
-function getGameBoardState(game) {
-    return genEmptyBoard().map((sqr) => {
-        sqr.piece = game.get(sqr.position);
-        sqr.moves = game.moves({square: sqr.position, verbose: true});
-        return sqr;
-    });
-}
+store.subscribe(() =>
+    ReactDOM.render(<GameBoard board={store.getState().board}/>, document.getElementById("root")));
 
+// -- // -- // -- //
 store.dispatch({type: START_NEW_GAME});
-const state = store.getState();
-ReactDOM.render(
-    <GameBoard board={state.board} />,
-    document.getElementById("root")
-);
+
+// ReactDOM.render(<GameBoard board={}/>>, document.getElementById("root"));
 
 // async function runGame(game) {
 //     await new Promise((res) => setTimeout(res, 250));

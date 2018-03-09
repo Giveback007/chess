@@ -1,7 +1,11 @@
 // @import "~bootstrap/dist/css/bootstrap";
 $size: 500px;
-$lightSquares: white;
-$darkSquares: grey;
+$lightSquare: #ffffff;
+$lightSquareHighl: #CECECE;
+$darkSquare: #808080;
+$darkSquareHighl: #4E4E4E;
+$whitePiece: #13073A;
+$blackPiece: #550000;
 
 * {
     box-sizing: border-box;
@@ -17,7 +21,7 @@ $darkSquares: grey;
     .board-main {
         width: $size;
         height: $size;
-        border: solid 2px $darkSquares;
+        border: solid 2px $darkSquare;
         display: flex;
         flex-direction: column;
         .row {
@@ -29,10 +33,19 @@ $darkSquares: grey;
             flex: 1;
             display: flex;
             &.light {
-                background: $lightSquares;
+                background: $lightSquare;
+                &.highlight {
+                    background: $lightSquareHighl;
+                }
             }
             &.dark {
-                background: $darkSquares;
+                background: $darkSquare;
+                &.highlight {
+                    background: $darkSquareHighl;
+                }
+            }
+            &.highlight {
+                cursor: pointer;
             }
             .position {
                 position: absolute;
@@ -69,12 +82,13 @@ $darkSquares: grey;
 }
 
 .chess-piece {
+    cursor: pointer;
     font-size: 250%;
     text-align: center;
     &.w {
-        color: #13073A;
+        color: $whitePiece;
     }
     &.b {
-        color: #550000;
+        color: $blackPiece;
     }
 }

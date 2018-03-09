@@ -1,19 +1,28 @@
 import * as React from "react";
-import { ChessPiece } from "./chess-piece";
 import { IPieceType, ISquare } from "./defn";
+import { chessPieces } from "./pieces";
+import { store, PIECE_WAS_CLICKED } from "./app";
 
-export function Square(props) {
-    const sqr: ISquare = props.sqr;
+export function Square({sqr, showPos}: {sqr: ISquare, showPos: boolean}) {
     const pieceChar: IPieceType = sqr.piece ? sqr.piece.type : null;
     const pieceColor = sqr.piece ? sqr.piece.color : "";
+    const highlight = sqr.highlighted ? "highlight" : "";
+
+    const onPieceClick = (moves: string[]) => () =>
+        store.dispatch({type: PIECE_WAS_CLICKED, payload: moves});
 
     return (
-        <div className={`square ${sqr.color}`}>
-            <Position show={props.showPos} pos={sqr.position} />
-            <ChessPiece piece={pieceChar} color={pieceColor} />
+        <div className={`square ${sqr.color} ${highlight}`}>
+            <Position show={showPos} pos={sqr.position} />
+            <ChessPiece piece={pieceChar} color={pieceColor} click={onPieceClick(sqr.moves)} />
         </div>
     );
 }
 
-const Position = (props: {show: boolean, pos: string}) =>
-    props.show ? <div className="position">{ props.pos }</div> : null;
+const Position = ({show, pos}: {show: boolean, pos: string}) =>
+    show ? <div className="position">{ pos }</div> : null;
+
+const ChessPiece = ({color, piece, click}: {color: string, piece: IPieceType, click: () => any}) =>
+    <div className={`chess-piece ${ color }`} onClick={click}>
+        {piece ? chessPieces[piece] : null}
+    </div>;

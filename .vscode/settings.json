@@ -3,9 +3,11 @@
         "defn",
         "devtools",
         "dovy",
+        "highl",
         "horz",
+        "light",
         "queenside",
-        "redux"
+        "redux",
     ],
     "cSpell.language": "en"
 }
