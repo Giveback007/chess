@@ -1,4 +1,4 @@
-import { ISquare } from "./defn";
+import { ISquare, IGameBoard } from "./defn";
 
 // idx keys
 export const horz = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -27,8 +27,8 @@ export const genSquare = (h: number, v: number): ISquare => ({
 // export const genEmptyBoard = () => Array.from(Array(8), (x, h) =>
 //     Array.from(Array(8), (x, v) => getSquareProps(h, v)));
 
-export function genEmptyBoard(): ISquare[] {
-    const squares: ISquare[] = [];
+export function genEmptyBoard(): IGameBoard {
+    const squares: IGameBoard = [];
 
     for (let h = 0; h < 8; h++) {
         for (let v = 0; v < 8; v++) {
@@ -41,7 +41,7 @@ export function genEmptyBoard(): ISquare[] {
     return squares;
 }
 
-export function getGameBoardState(game, highlight: any[]) {
+export function getBoardState(game, highlight: any[]) {
     const boardState = genEmptyBoard();
 
     highlight.forEach((hgl) => {
@@ -56,7 +56,7 @@ export function getGameBoardState(game, highlight: any[]) {
     });
 }
 
-export function parseBoard(board: ISquare[]): ISquare[][] {
+export function parseBoard(board: IGameBoard): ISquare[][] {
     return board.reduce((rows, sqr, i) => {
         rows[(i + 8) % 8].push(sqr);
         return rows;

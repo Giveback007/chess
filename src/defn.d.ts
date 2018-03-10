@@ -1,4 +1,12 @@
-export interface GameState { game: any, board: ISquare[] }
+import { IPiece } from './defn.d';
+
+export interface GameState {
+    blackAi: boolean,
+    whiteAi: boolean,
+    game: any;
+    board: IGameBoard;
+    turn: IPieceColor;
+}
 
 export interface ISquare {
     horzIdx: number;
@@ -13,11 +21,12 @@ export interface ISquare {
 
 export interface IPiece {
     type: IPieceType;
-    color: 'w' | 'b';
+    color: IPieceColor;
 }
 
+export type IPieceColor = 'w' | 'b';
 export type IPieceType = 'k' | 'q' | 'b' | 'n' | 'p' | 'r';
-
+export type IGameBoard = ISquare[];
 // {
 //     "color": "w",
 //     "from": "b2",

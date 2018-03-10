@@ -31,7 +31,7 @@ function ChessPiece({color, piece, moves}: {color: string, piece: IPieceType, mo
 
     return (
         <div className={`chess-piece ${color} ${canMove}`} onClick={chessPieceClick(moves)}>
-            <span>{piece ? chessPieces[piece] : null}</span>
+            {piece ? chessPieces[piece] : null}
         </div>
     );
 }

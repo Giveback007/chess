@@ -1,13 +1,15 @@
 import * as React from "react";
 import { Square } from "./square";
-import { ISquare, GameState } from "./defn";
+import { ISquare, GameState, IGameBoard } from "./defn";
 import { horz, vert, parseBoard, genEmptyBoard } from "./lib";
 import { hot } from "react-hot-loader";
-
-const mapStateToProps = (state: GameState): { board: ISquare[] } => ({ board: state.board });
+import { Button, Switch } from "antd";
+import { setBlackAi, setWhiteAi } from "./store";
 
 class GameBoard extends React.Component<{
-    board: ISquare[],
+    blackAi: boolean,
+    whiteAi: boolean,
+    board: IGameBoard,
 }, {
     showPositions: boolean,
 }> {
@@ -29,8 +31,10 @@ class GameBoard extends React.Component<{
             </div>)) : null;
 
         return (<div>
-
-            <button onClick={this.togglePositions}>Show Pos</button>
+            <Switch size="default" checked={st.showPositions} onChange={this.togglePositions} /> Show Pos
+            <br/>
+            <Button type={pr.whiteAi ? "primary" : null} onClick={setWhiteAi(!pr.whiteAi)}>White AI</Button>
+            <Button type={pr.blackAi ? "primary" : null} onClick={setBlackAi(!pr.blackAi)}>Black AI</Button>
 
             <div className="board">
                 <section>

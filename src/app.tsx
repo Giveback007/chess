@@ -1,14 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import GameBoard from "./game-board";
-import { START_NEW_GAME, store } from "./store";
+import { START_NEW_GAME, stateStore } from "./store";
 import "./index.scss";
 
-store.subscribe(() =>
-    ReactDOM.render(<GameBoard board={store.getState().board}/>, document.getElementById("root")));
+stateStore.subscribe(() => {
+    const state = stateStore.getState();
 
-// -- // -- // -- //
-store.dispatch({type: START_NEW_GAME});
+    ReactDOM.render(
+        <GameBoard
+            blackAi={state.blackAi}
+            whiteAi={state.whiteAi}
+            board={state.board}
+        />, document.getElementById("root"));
+});
+
+// -- // -- // -- // -- // -- // -- //
+stateStore.dispatch({type: START_NEW_GAME});
 
 // ReactDOM.render(<GameBoard board={}/>>, document.getElementById("root"));
 

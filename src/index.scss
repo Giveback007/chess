@@ -1,4 +1,5 @@
-// @import "~bootstrap/dist/css/bootstrap";
+@import '~antd/dist/antd.css';
+
 $size: 65vw;
 $highl-border: #C68000;
 $lightSquare: #ffffff;
@@ -7,12 +8,8 @@ $darkSquare: #808080;
 $darkSquareHighl: #4E4E4E;
 $whitePiece: #13073A;
 $blackPiece: #550000;
-$board-padding: 2%;
 
-
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 .keys {
     font-size: $size / 25;
@@ -38,6 +35,7 @@ $board-padding: 2%;
 
 .board  {
     display: flex;
+    margin: 5px;
     section {
         display: flex;
         flex-direction: column;
@@ -45,7 +43,7 @@ $board-padding: 2%;
     
     .board-main {
         border-radius: 2%;
-        padding: $board-padding;
+        padding: 2%;
         width: $size;
         height: $size;
         border: solid 2px $darkSquare;
@@ -95,16 +93,14 @@ $board-padding: 2%;
         top: 50%;
         transform: translate(-50%, -50%);
     }
-    div {
-        margin: auto;
-    }
+    div { margin: auto; }
 }
 
 .chess-piece {
-    font-size: $size / 12;
-    text-align: center;
-    width: 85%;
-    height: 85%;
+    font-size: $size / 13;
+    // text-align: center;
+    width: 90%;
+    height: 90%;
     display: flex;
     &.w { color: $whitePiece; }
     &.b { color: $blackPiece; }
@@ -114,10 +110,8 @@ $board-padding: 2%;
         box-shadow: 1px 1px 1px 1px black;
         border-radius: 35%;
         &:hover {
-            box-shadow: 2px 2px 2px 2px black;
+            box-shadow: 1px 1px 2px 2px black;
         }
     }
-    span {
-        margin: auto;
-    }
+    span { margin: auto; }
 }

@@ -35,8 +35,7 @@ module.exports = {
                     options: { transpileOnly: true }
                 }], 
                 
-            },
-            {
+            }, {
                 test: /\.scss$/,
                 use: [{
                     loader: "style-loader" // creates style nodes from JS strings
@@ -47,7 +46,17 @@ module.exports = {
                     loader: "sass-loader", // compiles Sass to CSS
                     options: { sourceMaps: true }
                 }]
+            }, 
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 100000
+                    }
+                }]
             }
+            // { test: /.(png|woff(2)?|eot|ttf|svg)(?[a-z0-9=.]+)?$/, loader: 'url-loader?limit=100000' }
         ]
     },
     plugins: [

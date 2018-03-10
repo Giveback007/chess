@@ -2,19 +2,19 @@ import * as React from "react";
 
 export const chessPieces = {
     // 'w': {
-        // 'k': <div>&#9812;</div>,
-        // 'q': <div>&#9813;</div>,
-        // 'r': <div>&#9814;</div>,
-        // 'b': <div>&#9815;</div>,
-        // 'n': <div>&#9816;</div>,
-        // 'p': <div>&#9817;</div>
+        // 'k': <span>&#9812;</span>,
+        // 'q': <span>&#9813;</span>,
+        // 'r': <span>&#9814;</span>,
+        // 'b': <span>&#9815;</span>,
+        // 'n': <span>&#9816;</span>,
+        // 'p': <span>&#9817;</span>
     // },
     // 'b': {
-        "k": <div>&#9818;</div>,
-        "q": <div>&#9819;</div>,
-        "r": <div>&#9820;</div>,
-        "b": <div>&#9821;</div>,
-        "n": <div>&#9822;</div>,
-        "p": <div>&#9823;</div>,
+        "k": <span>&#9818;</span>,
+        "q": <span>&#9819;</span>,
+        "r": <span>&#9820;</span>,
+        "b": <span>&#9821;</span>,
+        "n": <span>&#9822;</span>,
+        "p": <span>&#9823;</span>,
     // }
 };

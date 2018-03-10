@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
+        "antd",
         "defn",
+        "devtool",
         "devtools",
         "dovy",
         "highl",
@@ -8,6 +10,7 @@
         "light",
         "queenside",
         "redux",
+        "woff"
     ],
     "cSpell.language": "en"
 }
