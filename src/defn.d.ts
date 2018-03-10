@@ -1,13 +1,14 @@
 export interface GameState { game: any, board: ISquare[] }
 
 export interface ISquare {
-    horzIdx: number,
-    vertIdx: number,
-    position: string,
-    highlighted: boolean,
-    color: 'dark' | 'light',
-    piece: IPiece,
-    moves: string[]
+    horzIdx: number;
+    vertIdx: number;
+    position: string;
+    highlighted: boolean;
+    color: 'dark' | 'light';
+    piece: IPiece;
+    moves: string[];
+    san: string;
 }
 
 export interface IPiece {

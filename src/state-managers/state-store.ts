@@ -18,7 +18,7 @@ const reducer = (state = {name: "Bob"}, action) => {
 
 const reduxStore = createStore(reducer, {});
 reduxStore.subscribe(() => {
-    console.log(reduxStore.getState());
+    // console.log(reduxStore.getState());
 });
 
 reduxStore.dispatch({type: "INIT"});

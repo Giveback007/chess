@@ -22,9 +22,9 @@ class GameBoard extends React.Component<{
         const board = pr.board ? parseBoard(pr.board).map((row, r) => (
             <div className="row" key={r}>{row.map((sqr, c) =>
                 <Square
-                    showPos={st.showPositions}
                     key={c}
                     sqr={sqr}
+                    showPos={st.showPositions}
                 />)}
             </div>)) : null;
 

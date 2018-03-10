@@ -1,20 +1,24 @@
 import * as React from "react";
 import { IPieceType, ISquare } from "./defn";
 import { chessPieces } from "./pieces";
-import { store, PIECE_WAS_CLICKED } from "./app";
+import { chessPieceClick, chessPieceMove } from "./store";
 
 export function Square({sqr, showPos}: {sqr: ISquare, showPos: boolean}) {
     const pieceChar: IPieceType = sqr.piece ? sqr.piece.type : null;
     const pieceColor = sqr.piece ? sqr.piece.color : "";
     const highlight = sqr.highlighted ? "highlight" : "";
-
-    const onPieceClick = (moves: string[]) => () =>
-        store.dispatch({type: PIECE_WAS_CLICKED, payload: moves});
+    const move = sqr.highlighted ? chessPieceMove(sqr.san) : null;
 
     return (
-        <div className={`square ${sqr.color} ${highlight}`}>
+        <div className={`square ${sqr.color} ${highlight}`} onClick={move}>
+            <span className="highlighting"></span>
             <Position show={showPos} pos={sqr.position} />
-            <ChessPiece piece={pieceChar} color={pieceColor} click={onPieceClick(sqr.moves)} />
+            {pieceChar ?
+                <ChessPiece
+                    piece={pieceChar}
+                    color={pieceColor}
+                    moves={sqr.moves}
+                /> : null}
         </div>
     );
 }
@@ -22,7 +26,12 @@ export function Square({sqr, showPos}: {sqr: ISquare, showPos: boolean}) {
 const Position = ({show, pos}: {show: boolean, pos: string}) =>
     show ? <div className="position">{ pos }</div> : null;
 
-const ChessPiece = ({color, piece, click}: {color: string, piece: IPieceType, click: () => any}) =>
-    <div className={`chess-piece ${ color }`} onClick={click}>
-        {piece ? chessPieces[piece] : null}
-    </div>;
+function ChessPiece({color, piece, moves}: {color: string, piece: IPieceType, moves: string[]}) {
+    const canMove = moves.length ? "can-move" : "";
+
+    return (
+        <div className={`chess-piece ${color} ${canMove}`} onClick={chessPieceClick(moves)}>
+            <span>{piece ? chessPieces[piece] : null}</span>
+        </div>
+    );
+}

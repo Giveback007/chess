@@ -1,4 +1,5 @@
 import { ISquare } from "./defn";
+
 // idx keys
 export const horz = ["a", "b", "c", "d", "e", "f", "g", "h"];
 export const vert = ["8", "7", "6", "5", "4", "3", "2", "1"];
@@ -19,7 +20,8 @@ export const genSquare = (h: number, v: number): ISquare => ({
     highlighted: false,
     color: (h + v) % 2 ? "dark" : "light",
     piece: null,
-    moves: null,
+    moves: [],
+    san: null,
 });
 
 // export const genEmptyBoard = () => Array.from(Array(8), (x, h) =>
@@ -42,7 +44,10 @@ export function genEmptyBoard(): ISquare[] {
 export function getGameBoardState(game, highlight: any[]) {
     const boardState = genEmptyBoard();
 
-    highlight.forEach((hgl) => boardState[hgl.to].highlighted = true);
+    highlight.forEach((hgl) => {
+        boardState[hgl.to].highlighted = true;
+        boardState[hgl.to].san = hgl.san;
+    });
 
     return boardState.map((sqr) => {
         sqr.piece = game.get(sqr.position);

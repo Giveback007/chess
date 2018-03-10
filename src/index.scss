@@ -1,14 +1,39 @@
 // @import "~bootstrap/dist/css/bootstrap";
-$size: 500px;
+$size: 65vw;
+$highl-border: #C68000;
 $lightSquare: #ffffff;
 $lightSquareHighl: #CECECE;
 $darkSquare: #808080;
 $darkSquareHighl: #4E4E4E;
 $whitePiece: #13073A;
 $blackPiece: #550000;
+$board-padding: 2%;
+
 
 * {
     box-sizing: border-box;
+}
+
+.keys {
+    font-size: $size / 25;
+    display: flex;
+    div {
+        display: flex;
+        span { margin: auto; }
+    }
+
+    &.vert {
+        height: $size;
+        flex-direction: column;
+        div { flex: 1; }
+    }
+
+    &.horz {
+        width: $size;
+        flex-direction: row;
+        div { flex: 1; }
+    }
+    
 }
 
 .board  {
@@ -19,6 +44,8 @@ $blackPiece: #550000;
     }
     
     .board-main {
+        border-radius: 2%;
+        padding: $board-padding;
         width: $size;
         height: $size;
         border: solid 2px $darkSquare;
@@ -27,68 +54,70 @@ $blackPiece: #550000;
         .row {
             display: flex;
             flex: 1;
-        }
-
-        .square {
-            flex: 1;
-            display: flex;
-            &.light {
-                background: $lightSquare;
-                &.highlight {
-                    background: $lightSquareHighl;
-                }
-            }
-            &.dark {
-                background: $darkSquare;
-                &.highlight {
-                    background: $darkSquareHighl;
-                }
-            }
-            &.highlight {
-                cursor: pointer;
-            }
-            .position {
-                position: absolute;
-                padding: 3px;
-            }
-            div {
-                margin: auto;
-            }
-        }
-        
+        }        
     }
 }
 
-.keys {
+.square {
+    flex: 1;
     display: flex;
+    border-radius: 10%;
+    position: relative;
+    &.light {
+        background: $lightSquare;
+        &.highlight {
+            &:hover { background: $lightSquareHighl; }
+        }
+    }
+    &.dark {
+        background: $darkSquare;
+        &.highlight {
+            &:hover { background: $darkSquareHighl; }
+        }
+    }
+    &.highlight {
+        cursor: pointer;
+        .highlighting {
+            border-radius: 35%;
+            box-shadow: 0px 0px 1px 3px $highl-border;
+            margin: 1%;
+        }
+    }
+    .position {
+        position: absolute;
+        padding: 8%;
+    }
+    .highlighting {
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
     div {
-        display: flex;
-        span {
-            margin: auto;
-        }
+        margin: auto;
     }
-
-    &.vert {
-        flex-direction: column;
-        div {
-            height: $size / 8;
-        }
-    }
-
-    &.horz div {
-        width: $size / 8;
-    }
-    
 }
 
 .chess-piece {
-    cursor: pointer;
-    font-size: 250%;
+    font-size: $size / 12;
     text-align: center;
-    &.w {
-        color: $whitePiece;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    &.w { color: $whitePiece; }
+    &.b { color: $blackPiece; }
+    &.can-move {
+        z-index: 100;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px 1px black;
+        border-radius: 35%;
+        &:hover {
+            box-shadow: 2px 2px 2px 2px black;
+        }
     }
-    &.b {
-        color: $blackPiece;
+    span {
+        margin: auto;
     }
 }
