@@ -1,8 +1,9 @@
 import * as Chess from "chess.js";
-import { combineReducers, createStore, Reducer, AnyAction, applyMiddleware, Middleware, MiddlewareAPI } from "redux";
+import {
+    combineReducers, createStore, Reducer, AnyAction, Middleware, Store, applyMiddleware,
+} from "redux";
 import { GameState, ISquare, IGameBoard, IPieceColor } from "./defn.d";
 import { genEmptyBoard, getBoardState } from "./lib";
-import { Store } from "antd/lib/table/createStore";
 
 // -- // -- // -- //
 export const START_NEW_GAME = "START_NEW_GAME";
@@ -10,6 +11,7 @@ export const PIECE_WAS_CLICKED = "PIECE_WAS_CLICKED";
 export const SET_BLACK_AI = "SET_BLACK_AI";
 export const SET_WHITE_AI = "SET_WHITE_AI";
 export const MOVE_PIECE = "MOVE_PIECE";
+export const REFRESH_BOARD = "REFRESH_BOARD";
 // -- // -- // -- //
 
 const initState: GameState = {
@@ -18,91 +20,41 @@ const initState: GameState = {
     game: null,
     board: genEmptyBoard(),
     turn: "w",
+    actions: [],
  };
 
-// const boardReducer: Reducer<{board: IGameBoard, game: any, turn: IPieceColor}> = (
-//     state: { board: IGameBoard, game: any, turn: IPieceColor },
-//     action: AnyAction,
-// ) => {
-//     switch (action.type) {
-//         case PIECE_WAS_CLICKED:
-//             return { ...state, ...{ board: getBoardState(state.game, action.payload) } };
-//         case MOVE_PIECE:
-//             state.game.move(action.payload);
-//             return { ...state, ...{ board: getBoardState(state.game, []), turn: state.game.turn() } };
-//         case START_NEW_GAME:
-//             const game = Chess();
-//             return { ...state, ...{ game, board: getBoardState(game, []), turn: game.turn() } };
-//         default:
-//             return state;
-//     }
-// };
+const rootReducer: Reducer<GameState> = (state = initState, action: AnyAction) => {
+    const actions = state.actions.slice(1, state.actions.length);
+    const newState = { ...state, actions };
 
-// const aiReducer: Reducer<{blackAi: boolean, whiteAi: boolean}> = (
-//     state: { blackAi: boolean, whiteAi: boolean },
-//     action: AnyAction,
-// ) => {
-//     switch (action.type) {
-//         case SET_BLACK_AI:
-//                 return { ...state, ...{ blackAi: action.payload } };
-//         case SET_WHITE_AI:
-//             return { ...state, ...{ whiteAi: action.payload } };
-//     }
-// };
-
-const gameReducer = (game, action) => {
     switch (action.type) {
+        case PIECE_WAS_CLICKED:
+            newState.board = getBoardState(state.game, action.payload);
+            break;
         case START_NEW_GAME:
-            return Chess();
-        case MOVE_PIECE:
-            game.move(action.payload);
-            return game;
-        default:
-            return game;
-    }
-};
-
-const boardReducer: Reducer<IGameBoard> = (board, action) => {
-    switch (action.type) {
-        case PIECE_WAS_CLICKED:
-            return getBoardState(action.game, action.highl);
-        case MOVE_PIECE:
-            return getBoardState(action.game, []);
-        default:
-            return board;
-    }
-};
-
-const reducers: Reducer<GameState> = combineReducers({
-    game: boardReducer,
-    board: boardReducer,
-    // turn: boardReducer,
-    // blackAi: aiReducer,
-    // whiteAi: aiReducer,
-});
-
-console.log(reducers);
-
-const reducer: Reducer<GameState> = (state = initState, action: AnyAction) => {
-    switch (action.type) {
-        case PIECE_WAS_CLICKED:
-            return { ...state, ...{ board: getBoardState(state.game, action.payload) } };
+            newState.game = Chess();
+            newState.actions = [ ...actions, {type: REFRESH_BOARD} ];
+            break;
         case MOVE_PIECE:
             state.game.move(action.payload);
-            return { ...state, ...{ board: getBoardState(state.game, []), turn: state.game.turn() } };
+            newState.actions = [ ...actions, {type: REFRESH_BOARD} ];
+            break;
+        case REFRESH_BOARD:
+            newState.board = getBoardState(state.game, []);
+            newState.turn = state.game.turn();
+            break;
         case SET_BLACK_AI:
-            return { ...state, ...{ blackAi: action.payload } };
+            newState.blackAi = action.payload;
+            break;
         case SET_WHITE_AI:
-            return { ...state, ...{ whiteAi: action.payload } };
-        case START_NEW_GAME:
-            const game = Chess();
-            return { ...state, ...{game, board: getBoardState(game, []), turn: game.turn()}};
-        default:
-            return state;
+            newState.whiteAi = action.payload;
+            break;
     }
+
+    return newState;
 };
 
-export const stateStore = createStore(reducer);
+export let stateStore: Store<GameState> = createStore(rootReducer);
 
 // -- // -- // -- //
 export const chessPieceClick = (moves) =>

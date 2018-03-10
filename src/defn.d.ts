@@ -1,4 +1,5 @@
-import { IPiece } from './defn.d';
+import { IPiece, GameState } from './defn.d';
+import { Store, AnyAction } from 'redux';
 
 export interface GameState {
     blackAi: boolean,
@@ -6,7 +7,10 @@ export interface GameState {
     game: any;
     board: IGameBoard;
     turn: IPieceColor;
+    actions: Actions;
 }
+
+export type Actions = AnyAction[];
 
 export interface ISquare {
     horzIdx: number;

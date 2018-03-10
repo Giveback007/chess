@@ -13,10 +13,14 @@ stateStore.subscribe(() => {
             whiteAi={state.whiteAi}
             board={state.board}
         />, document.getElementById("root"));
+
+    if (state.actions.length) {
+        stateStore.dispatch(state.actions[0])
+    }
 });
 
-// -- // -- // -- // -- // -- // -- //
-stateStore.dispatch({type: START_NEW_GAME});
+// -- // -- // -- // -- // -- // -- // -- //
+stateStore.dispatch({ type: START_NEW_GAME });
 
 // ReactDOM.render(<GameBoard board={}/>>, document.getElementById("root"));
 
