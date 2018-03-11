@@ -9,6 +9,7 @@ import { setBlackAi, setWhiteAi } from "./store";
 class GameBoard extends React.Component<{
     blackAi: boolean,
     whiteAi: boolean,
+    playerTurn: boolean,
     board: IGameBoard,
 }, {
     showPositions: boolean,
@@ -26,6 +27,7 @@ class GameBoard extends React.Component<{
                 <Square
                     key={c}
                     sqr={sqr}
+                    plTurn={pr.playerTurn}
                     showPos={st.showPositions}
                 />)}
             </div>)) : null;

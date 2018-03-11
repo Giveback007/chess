@@ -97,11 +97,10 @@ $blackPiece: #550000;
 }
 
 .chess-piece {
-    font-size: $size / 13;
-    // text-align: center;
     width: 90%;
     height: 90%;
     display: flex;
+    font-size: $size / 13;
     &.w { color: $whitePiece; }
     &.b { color: $blackPiece; }
     &.can-move {

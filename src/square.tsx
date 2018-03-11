@@ -3,11 +3,14 @@ import { IPieceType, ISquare } from "./defn";
 import { chessPieces } from "./pieces";
 import { chessPieceClick, chessPieceMove } from "./store";
 
-export function Square({sqr, showPos}: {sqr: ISquare, showPos: boolean}) {
+export function Square(
+    {sqr, showPos, plTurn}: {sqr: ISquare, showPos: boolean, plTurn: boolean},
+) {
     const pieceChar: IPieceType = sqr.piece ? sqr.piece.type : null;
     const pieceColor = sqr.piece ? sqr.piece.color : "";
     const highlight = sqr.highlighted ? "highlight" : "";
     const move = sqr.highlighted ? chessPieceMove(sqr.san) : null;
+    const pieceMoves = plTurn ? sqr.moves : [];
 
     return (
         <div className={`square ${sqr.color} ${highlight}`} onClick={move}>
@@ -17,7 +20,7 @@ export function Square({sqr, showPos}: {sqr: ISquare, showPos: boolean}) {
                 <ChessPiece
                     piece={pieceChar}
                     color={pieceColor}
-                    moves={sqr.moves}
+                    moves={pieceMoves}
                 /> : null}
         </div>
     );

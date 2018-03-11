@@ -18,9 +18,13 @@ Built with React.js and Chess.js
 - ["live code editing combined with a time traveling debugger."](https://github.com/gaearon/redux-devtools)
 
 ##### Features
+- CSS animate the movement of the pieces
 - Learn CSS grid and implement
 - Each piece should be its own component
 - Make the game people playable
 	* [Drag and drop](https://react-dnd.github.io/react-dnd/docs-tutorial.html)
 	* play against random
 - Create an api for the game
+- Package this up in to an NPM package and use some sort of
+app api to interface in to it
+- Make it so that multiple 

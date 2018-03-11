@@ -2,12 +2,14 @@ import { IPiece, GameState } from './defn.d';
 import { Store, AnyAction } from 'redux';
 
 export interface GameState {
+    gameOver: boolean,
     blackAi: boolean,
     whiteAi: boolean,
+    playerTurn: boolean,
     game: any;
     board: IGameBoard;
     turn: IPieceColor;
-    actions: Actions;
+    // actions: Actions;
 }
 
 export type Actions = AnyAction[];
