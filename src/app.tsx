@@ -5,33 +5,29 @@ import GameBoard from "./game-board";
 import { START_NEW_GAME, stateStore, chessPieceMove } from "./store";
 import "./index.scss";
 
-stateStore.subscribe(() => {
-    const state = stateStore.getState();
-
-    ReactDOM.render(
-        <GameBoard
-            blackAi={state.blackAi}
-            whiteAi={state.whiteAi}
-            playerTurn={state.playerTurn}
-            board={state.board}
-        />, document.getElementById("root"));
-
-    if (state.game.game_over()) {
-        return;
-        // add some conditional that let you know who won
-    }
+    // if (state.game.game_over()) {
+    //     return;
+    //     // add some conditional that let you know who won
+    // }
 
     // -- // -- //
     // this will be how the ai can interface with the game
     // need to expose this part
-    if (
-        (state.turn === "w" && state.whiteAi) ||
-        (state.turn === "b" && state.blackAi)
-    ) {
-        aiTurn(50, state.game.moves())
-        .then((nextMove) => chessPieceMove(nextMove)());
-    }
+    // if (
+    //     (state.turn === "w" && state.whiteAi) ||
+    //     (state.turn === "b" && state.blackAi)
+    // ) {
+    //     aiTurn(50, state.game.moves())
+    //     .then((nextMove) => chessPieceMove(nextMove)());
+    // }
     // -- // -- //
+// });
+
+stateStore.subscribe(() => {
+    const state = stateStore.getState();
+    ReactDOM.render(
+        <GameBoard gameState={state}/>,
+        document.getElementById("root"));
 });
 
 // -- // -- // -- // -- // -- // -- // -- //

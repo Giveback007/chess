@@ -1,6 +1,5 @@
 @import '~antd/dist/antd.css';
 
-$size: 65vw;
 $highl-border: #C68000;
 $lightSquare: #ffffff;
 $lightSquareHighl: #CECECE;
@@ -9,10 +8,12 @@ $darkSquareHighl: #4E4E4E;
 $whitePiece: #13073A;
 $blackPiece: #550000;
 
-* { box-sizing: border-box; }
+* { 
+    box-sizing: border-box;
+    line-height: 1;
+}
 
 .keys {
-    font-size: $size / 25;
     display: flex;
     div {
         display: flex;
@@ -20,13 +21,13 @@ $blackPiece: #550000;
     }
 
     &.vert {
-        height: $size;
+        height: 100%;
         flex-direction: column;
         div { flex: 1; }
     }
 
     &.horz {
-        width: $size;
+        width: 100%;
         flex-direction: row;
         div { flex: 1; }
     }
@@ -44,8 +45,6 @@ $blackPiece: #550000;
     .board-main {
         border-radius: 2%;
         padding: 2%;
-        width: $size;
-        height: $size;
         border: solid 2px $darkSquare;
         display: flex;
         flex-direction: column;
@@ -100,7 +99,6 @@ $blackPiece: #550000;
     width: 90%;
     height: 90%;
     display: flex;
-    font-size: $size / 13;
     &.w { color: $whitePiece; }
     &.b { color: $blackPiece; }
     &.can-move {

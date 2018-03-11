@@ -1,15 +1,17 @@
 import { IPiece, GameState } from './defn.d';
 import { Store, AnyAction } from 'redux';
 
-export interface GameState {
-    gameOver: boolean,
-    blackAi: boolean,
-    whiteAi: boolean,
-    playerTurn: boolean,
-    game: any;
-    board: IGameBoard;
+export interface BoardState {
+    showHighl: boolean;
+    showPositions: boolean;
+    boardState: IGameBoard;
+    headerMsg: string;
     turn: IPieceColor;
-    // actions: Actions;
+    boardSize: number;
+}
+
+export interface GameState extends BoardState {
+    game: any;
 }
 
 export type Actions = AnyAction[];
@@ -33,6 +35,7 @@ export interface IPiece {
 export type IPieceColor = 'w' | 'b';
 export type IPieceType = 'k' | 'q' | 'b' | 'n' | 'p' | 'r';
 export type IGameBoard = ISquare[];
+
 // {
 //     "color": "w",
 //     "from": "b2",
