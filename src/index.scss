@@ -1,6 +1,5 @@
-@import '~antd/dist/antd.css';
+// @import '~antd/dist/antd.css';
 
-$highl-border: #C68000;
 $lightSquare: #ffffff;
 $lightSquareHighl: #CECECE;
 $darkSquare: #808080;
@@ -8,107 +7,113 @@ $darkSquareHighl: #4E4E4E;
 $whitePiece: #13073A;
 $blackPiece: #550000;
 
-* { 
+.ChessBoard { 
+    transition: all 1s ease;
     box-sizing: border-box;
     line-height: 1;
-}
 
-.keys {
-    display: flex;
-    div {
+    .header {
+        text-align: center;
+    }
+
+    .keys {
         display: flex;
+        div {
+            display: flex;
+            span { margin: auto; }
+        }
+
+        &.vert {
+            height: 100%;
+            flex-direction: column;
+            div { flex: 1; }
+        }
+
+        &.horz {
+            width: 100%;
+            flex-direction: row;
+            div { flex: 1; }
+        }
+        
+    }
+
+    .board  {
+        display: flex;
+        margin: 5px;
+        section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .board-main {
+            border-radius: 2%;
+            padding: 2%;
+            border: 1px solid $darkSquare;
+            display: flex;
+            flex-direction: column;
+            .row {
+                display: flex;
+                flex: 1;
+            }        
+        }
+    }
+
+    .square {
+        flex: 1;
+        display: flex;
+        border-radius: 10%;
+        position: relative;
+        &.light {
+            background: $lightSquare;
+            &.clickable {
+                &:hover { background: $lightSquareHighl; }
+            }
+        }
+        &.dark {
+            background: $darkSquare;
+            &.clickable {
+                &:hover { background: $darkSquareHighl; }
+            }
+        }
+        &.clickable {
+            cursor: pointer;
+            .selector {
+                border-radius: 35%;
+                margin: 1%;
+            }
+        }
+        .position {
+            z-index: 98;
+            position: absolute;
+            padding: 8%;
+        }
+        .selector {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        div { margin: auto; }
+    }
+
+    .chess-piece {
+        width: 90%;
+        height: 90%;
+        display: flex;
+        z-index: 99;
+        &.w { color: $whitePiece; }
+        &.b { color: $blackPiece; }
+        &.can-move {
+            z-index: 100;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px 1px black;
+            border-radius: 35%;
+            &:hover {
+                box-shadow: 1px 1px 2px 2px black;
+            }
+        }
         span { margin: auto; }
     }
-
-    &.vert {
-        height: 100%;
-        flex-direction: column;
-        div { flex: 1; }
-    }
-
-    &.horz {
-        width: 100%;
-        flex-direction: row;
-        div { flex: 1; }
-    }
-    
-}
-
-.board  {
-    display: flex;
-    margin: 5px;
-    section {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .board-main {
-        border-radius: 2%;
-        padding: 2%;
-        border: solid 2px $darkSquare;
-        display: flex;
-        flex-direction: column;
-        .row {
-            display: flex;
-            flex: 1;
-        }        
-    }
-}
-
-.square {
-    flex: 1;
-    display: flex;
-    border-radius: 10%;
-    position: relative;
-    &.light {
-        background: $lightSquare;
-        &.highlight {
-            &:hover { background: $lightSquareHighl; }
-        }
-    }
-    &.dark {
-        background: $darkSquare;
-        &.highlight {
-            &:hover { background: $darkSquareHighl; }
-        }
-    }
-    &.highlight {
-        cursor: pointer;
-        .highlighting {
-            border-radius: 35%;
-            box-shadow: 0px 0px 1px 3px $highl-border;
-            margin: 1%;
-        }
-    }
-    .position {
-        position: absolute;
-        padding: 8%;
-    }
-    .highlighting {
-        position: absolute;
-        width: 80%;
-        height: 80%;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    div { margin: auto; }
-}
-
-.chess-piece {
-    width: 90%;
-    height: 90%;
-    display: flex;
-    &.w { color: $whitePiece; }
-    &.b { color: $blackPiece; }
-    &.can-move {
-        z-index: 100;
-        cursor: pointer;
-        box-shadow: 1px 1px 1px 1px black;
-        border-radius: 35%;
-        &:hover {
-            box-shadow: 1px 1px 2px 2px black;
-        }
-    }
-    span { margin: auto; }
 }

@@ -1,12 +1,29 @@
 import { IPiece, GameState } from './defn.d';
-import { Store, AnyAction } from 'redux';
+
+export interface ChessBoardAPI {
+    chessPieceClick: (select: string) => {
+        type: string;
+        payload: string;
+    };
+    chessPieceMove: (san: string) => {
+        type: string;
+        payload: string;
+    };
+    startNewGame: (game: any) => {
+        type: string;
+        payload: any;
+    };
+    refreshBoard: () => {
+        type: string;
+    };
+}
 
 export interface BoardState {
     showHighl: boolean;
+    showKeys: boolean;
     showPositions: boolean;
     boardState: IGameBoard;
     headerMsg: string;
-    turn: IPieceColor;
     boardSize: number;
 }
 
@@ -14,12 +31,21 @@ export interface GameState extends BoardState {
     game: any;
 }
 
-export type Actions = AnyAction[];
+export interface InitGameState {
+    game?: any;
+    showHighl?: boolean;
+    showKeys?: boolean;
+    showPositions?: boolean;
+    boardState?: IGameBoard;
+    headerMsg?: string;
+    boardSize?: number;
+}
 
 export interface ISquare {
     horzIdx: number;
     vertIdx: number;
     position: string;
+    selected: boolean;
     highlighted: boolean;
     color: 'dark' | 'light';
     piece: IPiece;

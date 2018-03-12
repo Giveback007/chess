@@ -56,7 +56,6 @@ module.exports = {
                     }
                 }]
             }
-            // { test: /.(png|woff(2)?|eot|ttf|svg)(?[a-z0-9=.]+)?$/, loader: 'url-loader?limit=100000' }
         ]
     },
     plugins: [
@@ -64,7 +63,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: '(Dev) Chess',
             template: './src/index.html',
-            filename: 'index.html'
+            filename: 'index.html',
+            favicon: 'src/favicon.ico'
         }),
         // For HMR, makes it easier to see which dependencies are being patched
         new webpack.NamedModulesPlugin(),
@@ -78,6 +78,7 @@ module.exports = {
     externals: {
         // "react": "React",
         // "react-dom": "ReactDOM",
-        // "chess.js": "Chess"
+        // "chess.js": "Chess",
+        // "redux": "Redux"
     }
 }

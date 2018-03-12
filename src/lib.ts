@@ -18,6 +18,7 @@ export const genSquare = (h: number, v: number): ISquare => ({
     vertIdx: v,
     position: horz[h] + vert[v],
     highlighted: false,
+    selected: false,
     color: (h + v) % 2 ? "dark" : "light",
     piece: null,
     moves: [],
@@ -38,16 +39,18 @@ export function genEmptyBoard(): IGameBoard {
     return squares;
 }
 
-export function getBoardState(game, highlight: any[]) {
+export function getBoardState(game, select: string) {
     const boardState = genEmptyBoard();
 
-    highlight.forEach((hgl) => {
+    game.moves({square: select, verbose: true})
+    .forEach((hgl) => {
         boardState[hgl.to].highlighted = true;
         boardState[hgl.to].san = hgl.san;
     });
 
     return boardState.map((sqr) => {
         sqr.piece = game.get(sqr.position);
+        sqr.selected = sqr.position === select;
         sqr.moves = game.moves({square: sqr.position, verbose: true});
         return sqr;
     });

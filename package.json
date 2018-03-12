@@ -1,15 +1,15 @@
 {
-  "name": "chess",
-  "version": "1.0.0",
+  "name": "chess-board",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "code . && npm run webpack-serve",
     "webpack-serve": "node_modules/.bin/webpack-dev-server",
     "webpack": "node_modules/.bin/webpack"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/react": "16.0.36",
     "@types/react-dom": "16.0.3",
@@ -33,7 +33,6 @@
     "chess.js": "0.10.2",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "redux": "3.7.2",
-    "rxjs": "^5.5.6"
+    "redux": "3.7.2"
   }
 }

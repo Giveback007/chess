@@ -1,26 +1,27 @@
 import * as React from "react";
 import { Square } from "./square";
-import { BoardState, GameState } from "./defn";
+import { BoardState, GameState, ChessBoardAPI } from "./defn";
 import { horz, vert, parseBoard } from "./lib";
 import { hot } from "react-hot-loader";
 
-// return (<div>
-//     {/* <Switch size="default" checked={pr.showPositions} /> Show Pos */}
-//     {/* <br/> */}
-//     {/* <Button type={pr.whiteAi ? "primary" : null} onClick={setWhiteAi(!pr.whiteAi)}>White AI</Button>
-//     <Button type={pr.blackAi ? "primary" : null} onClick={setBlackAi(!pr.blackAi)}>Black AI</Button> */}
-
-function GameBoard(props: {gameState: GameState}) {
+function ChessBoard(props: { gameState: GameState, api: ChessBoardAPI }) {
     const {
         showHighl, showPositions, boardSize,
-        boardState, headerMsg, turn,
+        boardState, headerMsg, showKeys,
     }: BoardState = props.gameState;
 
-    const size = { width: boardSize, height: boardSize, fontSize: boardSize / 11 };
+    const boardStyle = {
+        width: boardSize,
+        height: boardSize,
+        fontSize: boardSize / 11,
+        borderWidth: boardSize / 75,
+    };
+
     const board = boardState ? parseBoard(boardState).map((row, r) => (
         <div className="row" key={r}>{row.map((sqr, c) =>
             <Square
                 sqr={sqr}
+                api={props.api}
                 size={boardSize}
                 key={sqr.position}
                 showHighl={showHighl}
@@ -29,15 +30,19 @@ function GameBoard(props: {gameState: GameState}) {
         </div>)) : null;
 
     return (
-        <div>
+        <div className="ChessBoard">
+            <h2 className="header" style={{ width: boardSize, fontSize: boardSize / 30 }}>
+                {headerMsg}
+            </h2>
+
             <div className="board">
                 <section>
-                    <Keys arr={vert} name={"vert"} size={boardSize}/>
+                    { showKeys ? <Keys arr={vert} name={"vert"} size={boardSize}/> : null}
                 </section>
 
                 <section>
-                    <div className="board-main" style={size}> {board} </div>
-                    <Keys arr={horz} name={"horz"} size={boardSize}/>
+                    <div className="board-main" style={boardStyle}> {board} </div>
+                    { showKeys ? <Keys arr={horz} name={"horz"} size={boardSize}/> : null }
                 </section>
             </div>
 
@@ -55,4 +60,4 @@ const Keys = ({name, arr, size}: {name: string, arr: string[], size: number}) =>
         { arr.map((key) => <div key={key}><span>{key}</span></div>) }
     </div>;
 
-export default hot(module)(GameBoard);
+export default hot(module)(ChessBoard);
