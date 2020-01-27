@@ -1,27 +1,32 @@
-# Chess Board
+# empty-project
 
-#### Built with React, Redux
+Empty project.
 
-#### Made to work with [Chess.js](https://github.com/jhlywa/chess.js/blob/master/README.md)
+## Building and running on localhost
 
----
+First install dependencies:
 
-#### Todo:
-##### Dev
-- Have a build script
-- long-term vendor-caching
-- "externals:" ?
-- [caching](https://webpack.js.org/guides/caching/)
-- [code splitting](https://webpack.js.org/guides/code-splitting/)
-- Dev and Prod
-- [production](https://webpack.js.org/guides/production/)
-- Add redux devtools
-- ["live code editing combined with a time traveling debugger."](https://github.com/gaearon/redux-devtools)
+```sh
+npm install
+```
 
-##### Features
-- CSS animate the movement of the pieces
-- Use antd to 
-- Learn CSS grid and implement
-- [Drag and drop](https://react-dnd.github.io/react-dnd/docs-tutorial.html)
-- Create an api for the game
-- Package this up in to an NPM package and use some sort of app api to interface in to it
+To run in hot module reloading mode:
+
+```sh
+npm start
+```
+
+To create a production build:
+
+```sh
+npm run build-prod
+```
+
+## Running
+
+Open the file `dist/index.html` in your browser
+
+## Credits
+
+Made with [createapp.dev](https://createapp.dev/)
+

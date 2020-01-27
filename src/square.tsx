@@ -39,10 +39,12 @@ interface IChessPieceElm {
     color: string; piece: IPieceType; moves: string[]; api: ChessBoardAPI; size: number; pos: string; selected: boolean;
 }
 function ChessPiece({color, piece, moves, api, size, pos, selected}: IChessPieceElm) {
+    const shadowPx = `${size / 700}px `;
+
     const canMove = moves.length ? "can-move" : "";
     const shadowColor = selected ? "black" : "darkgrey";
     const selectorShadow = canMove ? {
-        boxShadow: `${size / 700}px ${size / 700}px ${size / 700}px ${size / 700}px ${shadowColor}`,
+        boxShadow: shadowPx + shadowPx + shadowPx + shadowColor,
     } : null;
 
     return (
