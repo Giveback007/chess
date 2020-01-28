@@ -1,35 +1,50 @@
-import { iterate, arrDivide, dictionary } from "@giveback007/util-lib";
-import { Chess } from "~chess";
+// import { iterate, arrDivide, dictionary, arrGen } from "@giveback007/util-lib";
+// import { Chess } from "~chess";
 
-export const boardData = (() => {
-    const horz = ["a", "b", "c", "d", "e", "f", "g", "h"];
-    const vert = ["8", "7", "6", "5", "4", "3", "2", "1"];
+// const horz: HorzKeys = ["a", "b", "c", "d", "e", "f", "g", "h"];
+// const vert: VertKeys = ["8", "7", "6", "5", "4", "3", "2", "1"];
 
-    const posArr = iterate(vert.length, horz.length).map(({ x, y }) => vert[x] + horz[y]);
-    const dict: dictionary<IPiece | null> = { };
 
-    posArr.forEach((pos) => dict[pos] = null);
 
-    return new class BoardData {
-        get horz() { return [ ...horz ]; };
-        get vert() { return [ ...vert ]; };
-        get posArr() { return [ ...posArr ] }
+// export const getEmptyGameState = () => ({
+//     horzKeys: [ ...horz ] as HorzKeys,
+//     vertKeys: [ ...vert ] as VertKeys,
+//     boardPositionTupl: [ ...boardPositions ] as SquareKeysTupl,
+//     gameStateDict: boardPositions.reduce((obj, pos) => {
+//         obj[pos] = null;
+//         return obj;
+//     }, {} as GameStateDict),
+//     gameStateTupl: arrGen(64) as GameStateTupl,
+//     gameState2dTupl: arrDivide(arrGen(64), 8) as GameState2dTupl
+// })
 
-        gameDict = (game?: Chess) => game ?
-            posArr.reduce((dict, pos) => {
-                dict[pos] = game.get(pos);
-                return dict;
-            }, { ...dict })
-            :
-            { ...dict };
+// export const boardData = (() => { 
 
-        gameArr = (game?: Chess) =>
-            posArr.map(game ? (pos) => game.get(pos) : () => null);
+//     // const posArr = iterate(vert.length, horz.length).map(({ x, y }) => vert[x] + horz[y]);
+//     const dict: dictionary<Piece | null> = { };
 
-        game2dArr = (game?: Chess) =>
-            arrDivide(this.gameArr(game), vert.length);
-    }
-})();
+//     posArr.forEach((pos) => dict[pos] = null);
+
+//     return new class BoardData {
+//         get horz() { return [ ...horz ]; };
+//         get vert() { return [ ...vert ]; };
+//         get posArr() { return [ ...posArr ] }
+
+//         gameDict = (game?: Chess) => game ?
+//             posArr.reduce((dict, pos) => {
+//                 dict[pos] = game.get(pos);
+//                 return dict;
+//             }, { ...dict })
+//             :
+//             { ...dict };
+
+//         gameArr = (game?: Chess) =>
+//             posArr.map(game ? (pos) => game.get(pos) : () => null);
+
+//         game2dArr = (game?: Chess) =>
+//             arrDivide(this.gameArr(game), vert.length);
+//     }
+// })();
 
 // export const getBoardIndex = (pos: string) => ({
 //     horz: boardData.horz.findIndex((h) => h === pos[0]),

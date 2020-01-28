@@ -1,137 +1,99 @@
-import { dictionary, iterate } from '@giveback007/util-lib';
+/** This is to be made in to its own package */
+import { dictionary, iterate, wait, objKeys, objKeyVals, objExtract, arrDivide } from '@giveback007/util-lib';
 import * as chessGame from "chess.js";
-import { boardData } from '~game.utils';
+import { getEmptyGameState } from '~chess.utils';
+import { IChess } from './chess.type';
 
-window['boardPos'] = boardData;
 window['chess'] = chessGame;
 
-type move = {
-    color: IPieceColor,
-    from: string,
-    to: string,
-    flags: string,
-    piece: IPieceType,
-    san: string,
-    captured?: string,
-    promotion?: IPieceType
-}
+type gameStateSubFunct = (gameState: { [x: string]: Piece | null; }) => any;
 
-// For more check: https://github.com/jhlywa/chess.js
+type gameStateSubs = dictionary<gameStateSubFunct>;
 
-/** Wrapper for chess.js object */
-export class Chess {
+/**
+ * Wrapper for chess.js object
+ * 
+ * https://github.com/jhlywa/chess.js
+ * */
+export class Chess extends IChess {
+
+    readonly horzKeys: HorzKeys =
+        ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+    readonly vertKeys: VertKeys =
+        ["8", "7", "6", "5", "4", "3", "2", "1"];
+
+    readonly squareKeys: SquareKeysTupl = [
+        "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+        "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
+        "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+        "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+        "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+        "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+        "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+        "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
+    ];
+
+    get gameState(): {
+        gameStateTupl: GameStateTupl;
+        gameState2dTupl: GameState2dTupl;
+        gameStateDict: GameStateDict;
+    } {
+        const gameStateTupl = [] as any as GameStateTupl;
+        const gameStateDict = {} as GameStateDict;
+
+        const { squareKeys } = this;
+        squareKeys.forEach((sqr, i) => {
+            const item = this.get(sqr);
+
+            gameStateTupl[i] = item;
+            gameStateDict[sqr] = item;
+        })
+
+        return {
+            gameStateTupl: gameStateTupl,
+            gameState2dTupl: arrDivide(gameStateTupl, 8) as GameState2dTupl,
+            gameStateDict: gameStateDict
+        }
+    }
+
+    private subscriptions: gameStateSubs = { };
+
     /**
      * The Chess() constructor takes an optional parameter which specifies the board configuration in Forsyth-Edwards Notation.
     */
     constructor(fen?: string) {
-        Object.assign(this, (chessGame as any).Chess(fen));
+        super();
+
+        const chess = (chessGame as any).Chess(fen);
+        Object.assign(this, chess);
+
+        this.move = (move) => {
+            // trigger the subscriptions
+        }
+
+        this.moves = () => {
+            // return a dictionary of valid moves
+        }
+
+        // this.move = (move) => {
+        //     wait(0).then(() => {
+        //         const state = this.boardDict();
+        //         objKeyVals(this.subscriptions).forEach(({ val: f }) =>  f(state))
+        //     })
+        // }
+
+        // move
+        // reset
+        // header
     }
 
-    /**
-     * Returns the piece on the square
-     */
-    get: (str: string) => (IPiece | null);
+    /** subscribe to game state changes */
+    // subscribe = (f: gameStateSubFunct) => {
+    //     f(this.gamePos)
+    //     this.subscriptions
+    //     return { unsubscribe: () => }
+    // }
 
-    /**
-     * Returns a list of legal moves from the current position. The function
-     * takes an optional parameter which controls the single-square move
-     * generation and verbosity.
-     */
-    moves: (options?: { verbose: true, square: string }) => string[] | move[];
-
-    /**
-     * Attempts to make a move on the board, returning a move object if the move was legal,
-     * otherwise null. The .move function can be called two ways, by passing a string in
-     * Standard Algebraic Notation (SAN):
-     */
-    move: (move: { from: string, to: string } | string) => move;
-
-    /** Restart/reset the board to the initial starting position. */
-    reset: () => void;
-
-    /** Returns the current side to move. */
-    turn: () => IPieceColor;
-
-    /**
-     * Allows header information to be added to PGN output. Any number of key/value pairs can be passed to .header().
-     * */
-    header: (key?: string, val?: string) => dictionary<string>;
-
-    /**
-     * Returns a string containing an ASCII diagram of the current position.
-     * */
-    ascii: () => string;
-
-    /** Returns a dictionary of the */
-    boardDict = () => boardData.gameDict(this);
-
-    /** Returns true or false if the side to move has been checkmated. */
-    in_checkmate: () => boolean;
-
-    /** Returns true or false if the game is drawn (50-move rule or insufficient material). */
-    in_draw: () => boolean
-
-    /** Returns true or false if the side to move has been stalemated. */
-    in_stalemate: () => boolean;
-
-    /** Returns true or false if the current board position has occurred three or more times. */
-    in_threefold_repetition: () => boolean;
-
-    /** Returns true if the game is drawn due to insufficient material (K vs. K, K vs. KB, or K vs. KN); otherwise false. */
-    insufficient_material: () => boolean;
-
-    /**
-     * Returns true if the game has ended via checkmate,
-     * stalemate, draw, threefold repetition, or insufficient 
-     * material. Otherwise, returns false.
-     * */
-    game_over: () => boolean;
-
-    /** Returns the color of the square ('light' or 'dark'). */
-    square_color: (square: string) => 'light' | 'dark';
-
-    /** Returns the FEN string for the current position. */
-    fen: () => string;
-}
-
-// to simplify the api these haven't been added to the wrapper
-export interface notAddedToChess {
-    /**
-     * Place a piece on the square where piece is an object with the form
-     * { type: ..., color: ... }. Returns true if the piece was successfully placed,
-     * otherwise, the board remains unchanged and false is returned. put() will fail
-     * when passed an invalid piece or square, or when two or more kings of the same
-     * color are placed.
-     */
-    put: (piece: IPiece, square: string) => boolean;
-
-    /** Remove and return the piece on square. */
-    remove: (square: string) => IPiece | null;
-
-    /** Clears the board. */
-    clear: () => void;
-
-    /** The board is cleared, and the FEN string is loaded. Returns true if the position was successfully loaded, otherwise false. */
-    load: (fen: string) => boolean
-
-    /**
-     * https://github.com/jhlywa/chess.js#load_pgnpgn--options-
-     * 
-     * Load the moves of a game stored in Portable Game Notation. pgn should be a string.
-     * Options is an optional object which may contain a string newline_char and a boolean sloppy.
-     * 
-     * The method will return true if the PGN was parsed successfully, otherwise false.
-     */
-    load_pgn: (sloppy_pgn?, options?) => boolean
-
-    /**
-     * https://github.com/jhlywa/chess.js#pgn-options-
-     */
-    pgn: (options?) => string;
-
-    /** Take back the last half-move, returning a move object if successful, otherwise null. */
-    undo: () => any
-
-    /** Returns a validation object specifying validity or the errors found within the FEN string. */
-    validate_fen: (fen: string) => any;
+    // private subEmit
 }

@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom';
 
 import { App }  from './app';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root'),
-);
+export const render = (container: Element | null) => ReactDOM.render(<App/>, container);
+
+
+render(document.getElementById('root'));
+
